@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO</title>
+    <style>
+        .outer-header {
+            background-color: #F44336;
+        }
+
+        .inner-header {
+            Padding: 30px 40px
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            border: none;
+            border-radius: 0;
+            width: 70%;
+            padding: 10px;
+            float: left;
+            font-size: 16px;
+        }
+
+        button {
+            Padding: 10px;
+            width: 25%;
+        }
+
+        ul {
+            padding: 0px;
+            margin: 0px
+        }
+
+        ul li {
+            cursor: pointer;
+            position: relative;
+            padding: 12px 8px 12px 40px;
+            list-style-type: none;
+            background: #eee;
+            font-size: 18px;
+            transition: 0.2s;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        ul li:hover {
+            background: #ddd;
+        }
+
+
+        ul li:nth-child(odd) {
+            background: #f9f9f9;
+        }
+
+        ul li.is-checked {
+            background: #888;
+            color: #fff;
+            text-decoration: line-through;
+
+        }
+
+        .close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 12px 16px 12px 16px;
+        }
+
+        .close:hover {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="outer-header">
+    <div class="inner-header">
+        <h2>My To Do List</h2>
+        <input type="text" placeholder="Title...">
+        <button type="button" id="add">Add</button>
+    </div>
+    <ul>
+        <li class="is-checked">唱</li>
+        <li>跳</li>
+        <li class="is-checked">Rap</li>
+        <li>篮球</li>
+    </ul>
+
+</div>
+<script type="text/javascript">
+    //给每一个li标签添加一个按钮
+    let elements = document.getElementsByTagName("li");
+    for (let i = 0; i < elements.length; i++) {
+        let span = document.createElement("span");
+        let txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        elements[i].appendChild(span);
+        //给每一个li添加事件
+        elements[i].addEventListener("click", function (event) {
+            //检查元素是否已经被标记
+            /*if (elements[i].className === "is-checked") {
+                elements[i].className = "";
+            } else {
+                elements[i].className = "is-checked";
+            }*/
+            event.target.classList.toggle("is-checked");
+
+        })
+    }
+
+    // 增加待办事项
+    document.getElementById("add").addEventListener("click", function () {
+        let element = add()
+        document.getElementsByTagName("ul")[0].appendChild(element);
+        document.getElementsByTagName("input")[0].value = "";
+    })
+
+    //增加待办事项
+    function add() {
+        //先检查内容是否为空
+        let inputElement = document.getElementsByTagName("input")[0];
+        if (inputElement.value) {
+            console.log(inputElement.value);
+            let liElement = document.createElement("li");
+            liElement.innerText = inputElement.value;
+            let span = document.createElement("span");
+            let txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            liElement.appendChild(span);
+            //给span添加点击事件
+            span.addEventListener("click", function () {
+                span.parentElement.style.display = "none";
+            })
+            return liElement;
+        } else {
+            alert("填点啥呀")
+        }
+    }
+
+    //点击Close后关闭待办事项
+    let closeElements = document.getElementsByClassName("close");
+    for (let i = 0; i < closeElements.length; i++) {
+        closeElements[i].addEventListener("click", function (event) {
+            event.target.parentElement.style.display = "none";
+        })
+    }
+</script>
+</body>
+</html>
