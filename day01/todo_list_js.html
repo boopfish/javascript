@@ -26,7 +26,7 @@
         }
 
         button {
-            Padding: 10px;
+            padding: 10px;
             width: 25%;
         }
 
@@ -83,7 +83,7 @@
     <div class="inner-header">
         <h2>My To Do List</h2>
         <input type="text" placeholder="Title...">
-        <button type="button" id="add">Add</button>
+        <button type="button" id="add">add</button>
     </div>
     <ul>
         <li class="is-checked">唱</li>
@@ -94,64 +94,66 @@
 
 </div>
 <script type="text/javascript">
-    //给每一个li标签添加一个按钮
-    let elements = document.getElementsByTagName("li");
-    for (let i = 0; i < elements.length; i++) {
-        let span = document.createElement("span");
-        let txt = document.createTextNode("\u00D7");
-        span.className = "close";
-        span.appendChild(txt);
-        elements[i].appendChild(span);
-        //给每一个li添加事件
-        elements[i].addEventListener("click", function (event) {
-            //检查元素是否已经被标记
-            /*if (elements[i].className === "is-checked") {
-                elements[i].className = "";
-            } else {
-                elements[i].className = "is-checked";
-            }*/
-            event.target.classList.toggle("is-checked");
+  //给每一个li标签添加一个按钮
+  let elements = document.getElementsByTagName("li");
+  for (let i = 0; i < elements.length; i++) {
+    let span = document.createElement("span");
+    let txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    elements[i].appendChild(span);
+    //给每一个li添加事件
+    elements[i].addEventListener("click", function (event) {
+      //检查元素是否已经被标记
+      /*if (elements[i].className === "is-checked") {
+          elements[i].className = "";
+      } else {
+          elements[i].className = "is-checked";
+      }*/
+      event.target.classList.toggle("is-checked");
 
-        })
-    }
-
-    // 增加待办事项
-    document.getElementById("add").addEventListener("click", function () {
-        let element = add()
-        document.getElementsByTagName("ul")[0].appendChild(element);
-        document.getElementsByTagName("input")[0].value = "";
     })
+  }
 
-    //增加待办事项
-    function add() {
-        //先检查内容是否为空
-        let inputElement = document.getElementsByTagName("input")[0];
-        if (inputElement.value) {
-            console.log(inputElement.value);
-            let liElement = document.createElement("li");
-            liElement.innerText = inputElement.value;
-            let span = document.createElement("span");
-            let txt = document.createTextNode("\u00D7");
-            span.className = "close";
-            span.appendChild(txt);
-            liElement.appendChild(span);
-            //给span添加点击事件
-            span.addEventListener("click", function () {
-                span.parentElement.style.display = "none";
-            })
-            return liElement;
-        } else {
-            alert("填点啥呀");
-        }
+  // 增加待办事项
+  document.getElementById("add").addEventListener("click", function () {
+    if (document.getElementsByTagName("input")[0].value) {
+      let element = add()
+      document.getElementsByTagName("ul")[0].appendChild(element);
+      document.getElementsByTagName("input")[0].value = "";
+    } else {
+      alert("You must input something")
     }
+  })
 
-    //点击Close后关闭待办事项
-    let closeElements = document.getElementsByClassName("close");
-    for (let i = 0; i < closeElements.length; i++) {
-        closeElements[i].addEventListener("click", function (event) {
-            event.target.parentElement.style.display = "none";
-        })
+  //增加待办事项
+  function add() {
+    //先检查内容是否为空
+    let inputElement = document.getElementsByTagName("input")[0];
+    if (inputElement.value) {
+      console.log(inputElement.value);
+      let liElement = document.createElement("li");
+      liElement.innerText = inputElement.value;
+      let span = document.createElement("span");
+      let txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      liElement.appendChild(span);
+      //给span添加点击事件
+      span.addEventListener("click", function () {
+        span.parentElement.style.display = "none";
+      })
+      return liElement;
     }
+  }
+
+  //点击Close后关闭待办事项
+  let closeElements = document.getElementsByClassName("close");
+  for (let i = 0; i < closeElements.length; i++) {
+    closeElements[i].addEventListener("click", function (event) {
+      event.target.parentElement.style.display = "none";
+    })
+  }
 
 
 </script>

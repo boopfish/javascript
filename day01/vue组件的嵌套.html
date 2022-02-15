@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <app></app>
+</div>
+
+<script>
+  // 配置学生组件
+  const student = Vue.extend({
+    template: `
+      <div>
+      <h1>{{ studentName }}</h1>
+      <h1>{{ age }}</h1>
+      </div>
+    `,
+    data() {
+      return {
+        studentName: "张三",
+        age: 18
+      }
+    }
+  });
+  //配置学校组件(包括一个子组件student)
+  const school = Vue.extend({
+    template: `
+      <div>
+      <h1>{{ schoolName }}</h1>
+      <h1>{{ address }}</h1>
+      <student></student>
+      </div>
+    `,
+    data() {
+      return {
+        schoolName: "学校名称",
+        address: "地址",
+      }
+    },
+    components: {
+      student
+    }
+  });
+
+  const hello = Vue.extend({
+    template: `
+          <div>
+          <h1>Hello World!</h1>
+          </div>
+        `
+  });
+  // 定义最顶层的app组件 里面包括两个子组件 school以及hello
+  const app = Vue.extend({
+    template: `
+      <div>
+      <school></school>
+      <hello></hello>
+      </div>
+    `,
+    components: {
+      school: school,
+      hello: hello
+    }
+  })
+  //全局注册组件
+  Vue.component('hello', hello);
+  //局部注册组件
+  new Vue({
+    el: "#app",
+    components: {
+      app: app
+    }
+  });
+</script>
+
+</body>
+</html>

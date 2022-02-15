@@ -5,67 +5,134 @@
     <title>Title</title>
     <script src="../js/vue.js"></script>
     <style>
-        span {
-            margin-left: 20px;
+        .outer-header {
+            background-color: #F44336;
         }
 
-        li.check {
+        .inner-header {
+            Padding: 30px 40px
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            border: none;
+            border-radius: 0;
+            width: 70%;
+            padding: 10px;
+            float: left;
+            font-size: 16px;
+        }
+
+        button {
+            Padding: 10px;
+            width: 25%;
+        }
+
+        ul {
+            padding: 0px;
+            margin: 0px
+        }
+
+        ul li {
+            cursor: pointer;
+            position: relative;
+            padding: 12px 8px 12px 40px;
+            list-style-type: none;
+            background: #eee;
+            font-size: 18px;
+            transition: 0.2s;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        ul li:hover {
+            background: #ddd;
+        }
+
+
+        ul li:nth-child(odd) {
+            background: #f9f9f9;
+        }
+
+        ul li.check {
+            background: #888;
+            color: #fff;
             text-decoration: line-through;
+
+        }
+
+        .close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 12px 16px 12px 16px;
+        }
+
+        .close:hover {
+            background-color: #f44336;
+            color: white;
         }
     </style>
 </head>
 <body>
 
 <div id="app">
-    <div class="header">
-        <h2>My To Do List</h2>
-        <input type="text" v-model="inputItem">
-        <input type="button" value="添加" @click="addItem">
+    <div class="outer-header">
+        <div class="inner-header">
+            <h2>My To Do List</h2>
+            <input type="text" v-model="inputItem">
+            <button type="button" @click="addItem">Add</button>
+        </div>
     </div>
     <ul>
         <li v-for="(event,index) in events" @click="close(index)" ref="item">{{event}}
-            <button @click.stop="remove(index)">x</button>
+            <span @click.stop="remove(index)" class="close">x</span>
         </li>
     </ul>
 </div>
 
 <script>
-    new Vue({
-        el: "#app",
-        data: {
-            events: ["html", "javascript", "css", "vue"],
-            inputItem: 'Title...',
-            closeStyle: {"text-decoration": "line-through"},
-            use: false
-        },
-        methods: {
-            addItem() {
-                if (this.inputItem) {
-                    this.events.push(this.inputItem);
-                } else {
-                    alert("You must input something")
-                }
-                this.inputItem = '';
-            },
-            remove(index) {
-                console.log("span被点击")
-                this.events.splice(index, 1);
-            },
-
-            close(index) {
-                console.log("li被点击")
-                if (!this.$refs.item[index]) {
-                    return;
-                }
-                if (this.$refs.item[index].className) {
-                    this.$refs.item[index].className = "";
-                } else {
-                    this.$refs.item[index].className = "check";
-                }
-            }
+  new Vue({
+    el: "#app",
+    data: {
+      events: ["html", "javascript", "css", "vue"],
+      inputItem: 'Title...',
+      closeStyle: {"text-decoration": "line-through"},
+      use: false
+    },
+    methods: {
+      addItem() {
+        if (this.inputItem) {
+          this.events.push(this.inputItem);
+        } else {
+          alert("You must input something")
         }
+        this.inputItem = '';
+      },
+      remove(index) {
+        console.log("span被点击")
+        this.events.splice(index, 1);
+      },
 
-    })
+      close(index) {
+        console.log("li被点击")
+        if (!this.$refs.item[index]) {
+          return;
+        }
+        if (this.$refs.item[index].className) {
+          this.$refs.item[index].className = "";
+        } else {
+          this.$refs.item[index].className = "check";
+        }
+      }
+    }
+
+  })
 
 </script>
 </body>
