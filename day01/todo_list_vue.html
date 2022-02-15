@@ -27,7 +27,7 @@
         }
 
         button {
-            Padding: 10px;
+            padding: 10px;
             width: 25%;
         }
 
@@ -101,11 +101,10 @@
     el: "#app",
     data: {
       events: ["html", "javascript", "css", "vue"],
-      inputItem: 'Title...',
-      closeStyle: {"text-decoration": "line-through"},
-      use: false
+      inputItem: 'Input something you want to do...',
     },
     methods: {
+      // 增加一项
       addItem() {
         if (this.inputItem) {
           this.events.push(this.inputItem);
@@ -114,11 +113,12 @@
         }
         this.inputItem = '';
       },
+      // 删除一项todo
       remove(index) {
         console.log("span被点击")
         this.events.splice(index, 1);
       },
-
+      // 关闭一项todo
       close(index) {
         console.log("li被点击")
         if (!this.$refs.item[index]) {
@@ -131,7 +131,6 @@
         }
       }
     }
-
   })
 
 </script>
