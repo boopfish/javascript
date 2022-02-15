@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        span {
+            margin-left: 20px;
+        }
+
+        li.check {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <h2>My To Do List</h2>
+        <input type="text" v-model="inputItem">
+        <input type="button" value="添加" @click="addItem">
+    </div>
+    <ul>
+        <li v-for="(event,index) in events" @click="close(index)" ref="item">{{event}}
+            <button @click.stop="remove(index)">x</button>
+        </li>
+    </ul>
+</div>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            events: ["html", "javascript", "css", "vue"],
+            inputItem: 'Title...',
+            closeStyle: {"text-decoration": "line-through"},
+            use: false
+        },
+        methods: {
+            addItem() {
+                if (this.inputItem) {
+                    this.events.push(this.inputItem);
+                } else {
+                    alert("You must input something")
+                }
+                this.inputItem = '';
+            },
+            remove(index) {
+                console.log("span被点击")
+                this.events.splice(index, 1);
+            },
+
+            close(index) {
+                console.log("li被点击")
+                if (!this.$refs.item[index]) {
+                    return;
+                }
+                if (this.$refs.item[index].className) {
+                    this.$refs.item[index].className = "";
+                } else {
+                    this.$refs.item[index].className = "check";
+                }
+            }
+        }
+
+    })
+
+</script>
+</body>
+</html>
